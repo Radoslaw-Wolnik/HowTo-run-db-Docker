@@ -6,7 +6,7 @@
 2. connect to the container's bash shell: `docker-compose exec oracle-xe bash`
 3. inside the container, connect to SQL*Plus as the system user: `sqlplus / as sysdba`
 4. Now connect as user `CONNECT myappuser@XEPDB1` or `sqlplus myappuser@XEPDB1`
-
+- To connect as SYS: `sqlplus sys/your_sys_password@XEPDB1 as sysdba`
 ## Connecting via Oracle SQL Developer
 2. add new connection
 ```
@@ -20,10 +20,6 @@ Service name: XEPDB1
 ```
 3. test connection
 4. save and connect
-
-
- - Also make sure that script are executable (eg. `chmod +x init-scripts/init-oracle.sh` )
- - To connect as SYS: `sqlplus sys/your_sys_password@XEPDB1 as sysdba`
 
 # Oracle official image
 -1. rename `docker-compose-official` to `docker-compose` if you care 
@@ -47,3 +43,6 @@ Role: SYSDBA
 ```
 4. test connection
 5. save and connect
+
+# dont forget
+set scrips permissions (eg. `chmod +x init-scripts/init-oracle.sh` )
