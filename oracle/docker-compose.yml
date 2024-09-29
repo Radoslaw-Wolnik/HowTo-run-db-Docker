@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  oracle-xe:
+    image: gvenzl/oracle-xe:21-slim
+    environment:
+      - ORACLE_PASSWORD=${ORACLE_PASSWORD}
+      - APP_USER=${APP_USER}
+      - APP_USER_PASSWORD=${APP_USER_PASSWORD}
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+      - ./init-scripts:/opt/oracle/scripts/startup
+    healthcheck:
+      test: ["CMD", "sqlplus", "-L", "sys/${ORACLE_PASSWORD}@//localhost:1521/XE as sysdba", "@healthcheck.sql"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  oracle-data:
