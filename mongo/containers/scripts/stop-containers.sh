@@ -12,7 +12,4 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 echo "Stopping containers..."
 docker-compose -f "$ROOT_DIR/docker-compose.yml" down
 
-echo "Removing unused Docker resources..."
-docker system prune -f
-
-echo "Containers stopped and unused resources removed."
+echo "Containers stopped"
