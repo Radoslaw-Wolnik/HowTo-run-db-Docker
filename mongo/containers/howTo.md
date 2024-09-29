@@ -1,3 +1,5 @@
+# Mongo
+
 1. give executable permissions for scripts in script subdirectory
 2. install MongoDB Compass 
 3. start db via script
