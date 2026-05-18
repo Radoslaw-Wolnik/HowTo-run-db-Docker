@@ -36,3 +36,10 @@ Thumbs.db
 mongo-data/
 redis-data/
 uploads/
+
+# Local course dump used as source material, not part of the curated repo
+temp-uni/
+
+# Local database files produced by examples
+*.sqlite
+*.sqlite3
