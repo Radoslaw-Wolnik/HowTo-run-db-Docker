@@ -4,8 +4,8 @@
 db = db.getSiblingDB("university");
 
 db.createUser({
-  user: "uni",
-  pwd: "uni_password",
+  user: process.env.MONGO_APP_USER || "uni",
+  pwd: process.env.MONGO_APP_PASSWORD || "uni_password",
   roles: [{ role: "readWrite", db: "university" }]
 });
 

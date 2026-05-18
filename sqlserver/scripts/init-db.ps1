@@ -3,7 +3,16 @@
 
 $ErrorActionPreference = "Stop"
 
-$password = "Uni_Strong_Password_123"
+$envFile = Join-Path $PSScriptRoot "..\.env"
+if (Test-Path $envFile) {
+    Get-Content $envFile | ForEach-Object {
+        if ($_ -match "^\s*([^#][^=]+)=(.*)$") {
+            [Environment]::SetEnvironmentVariable($matches[1].Trim(), $matches[2].Trim(), "Process")
+        }
+    }
+}
+
+$password = if ($env:MSSQL_SA_PASSWORD) { $env:MSSQL_SA_PASSWORD } else { "Uni_Strong_Password_123" }
 $sqlcmd = "/opt/mssql-tools18/bin/sqlcmd"
 
 Write-Host "Waiting for SQL Server..."

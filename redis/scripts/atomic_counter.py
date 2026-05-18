@@ -1,6 +1,7 @@
 """Redis INCR is atomic, so concurrent clients do not lose increments."""
 
 from concurrent.futures import ThreadPoolExecutor
+import os
 
 import redis
 
@@ -11,7 +12,12 @@ def increment_many(client: redis.Redis, times: int) -> None:
 
 
 if __name__ == "__main__":
-    redis_client = redis.Redis(host="localhost", port=6379, decode_responses=True)
+    redis_client = redis.Redis(
+        host=os.getenv("REDIS_HOST", "localhost"),
+        port=int(os.getenv("REDIS_PORT", "6379")),
+        password=os.getenv("REDIS_PASSWORD", "uni_password"),
+        decode_responses=True,
+    )
     redis_client.set("course:counter", 0)
 
     with ThreadPoolExecutor(max_workers=10) as executor:

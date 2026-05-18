@@ -5,12 +5,19 @@ Run:
     python scripts/datatypes.py
 """
 
+import os
+
 import redis
 
 
 def connect() -> redis.Redis:
     """Create a Redis client using the local Docker container defaults."""
-    return redis.Redis(host="localhost", port=6379, decode_responses=True)
+    return redis.Redis(
+        host=os.getenv("REDIS_HOST", "localhost"),
+        port=int(os.getenv("REDIS_PORT", "6379")),
+        password=os.getenv("REDIS_PASSWORD", "uni_password"),
+        decode_responses=True,
+    )
 
 
 def demo_lists(client: redis.Redis) -> None:

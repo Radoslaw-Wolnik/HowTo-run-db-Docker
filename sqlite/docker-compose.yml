@@ -2,7 +2,9 @@ services:
   sqlite:
     image: keinos/sqlite3:latest
     container_name: uni-sqlite
+    environment:
+      SQLITE_DATABASE_FILE: ${SQLITE_DATABASE_FILE}
     working_dir: /workspace
     volumes:
       - ./:/workspace
-    command: ["sqlite3", "/workspace/university.sqlite", ".read /workspace/init/01_books.sql"]
+    command: ["sh", "-c", "sqlite3 /workspace/$${SQLITE_DATABASE_FILE} '.read /workspace/init/01_books.sql'"]
