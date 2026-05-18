@@ -1,0 +1,14 @@
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.12
+    container_name: uni-clickhouse
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+      - ./init:/docker-entrypoint-initdb.d:ro
+      - ./data:/var/lib/clickhouse/user_files/course-data:ro
+
+volumes:
+  clickhouse-data:

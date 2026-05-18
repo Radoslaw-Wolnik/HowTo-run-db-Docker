@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: uni-postgres
+    environment:
+      POSTGRES_DB: university
+      POSTGRES_USER: uni
+      POSTGRES_PASSWORD: uni_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uni -d university"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-data:
